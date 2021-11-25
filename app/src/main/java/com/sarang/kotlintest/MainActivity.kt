@@ -18,8 +18,8 @@ class MainActivity : AppCompatActivity() {
 
        tv_name = findViewById(R.id.tv_name)
 
-        tv_name.setText("Hey")
-        tv_name.text = "heyee"
+
+        tv_name.text = "Welcome to Kotlin"
         var  name = tv_name.text
 
         val et_name = findViewById<EditText>(R.id.et_name)
