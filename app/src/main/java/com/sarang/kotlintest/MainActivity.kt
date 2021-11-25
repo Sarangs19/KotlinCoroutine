@@ -3,45 +3,62 @@ package com.sarang.kotlintest
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import com.sarang.kotlintest.api.RetrofitHelper
+import com.sarang.kotlintest.api.WebService
+import com.sarang.kotlintest.databinding.ActivityMainBinding
+import com.sarang.kotlintest.repository.WeatherRepository
+import com.sarang.kotlintest.viewmodels.MainViewModel
+import com.sarang.kotlintest.viewmodels.MainViewModelFactory
 import java.time.Duration
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var tv_name : TextView
+
+    lateinit var binding : ActivityMainBinding
+    lateinit var viewModel : MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        //init databinding
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-       tv_name = findViewById(R.id.tv_name)
+        //init ui components
+        binding.tvName.text = "Welcome to Kotlin"
+        binding.etName.hint = "Enter Name"
 
-
-        tv_name.text = "Welcome to Kotlin"
-        var  name = tv_name.text
-
-        val et_name = findViewById<EditText>(R.id.et_name)
-        et_name.setHint("Enter Name")
-
-        val btn_save = findViewById<Button>(R.id.save)
-        btn_save.setText("Save")
-        btn_save.setOnClickListener(
-            View.OnClickListener {
-                if(et_name.text.toString().equals("")){
-                    et_name.setError("Enter Name")
-                    et_name.requestFocus()
-                }
-                else{
-                    et_name.setText("")
-                    Toast.makeText(applicationContext,"Saved",Toast.LENGTH_LONG).show()
-
-                    val  intent  = Intent(applicationContext,HomeActivity::class.java)
-                    startActivity(intent)
-                }
+        binding.save.setOnClickListener {
+            if(binding.etName.text.toString().equals("")){
+                binding.etName.setError("Enter Name")
+                binding.etName.requestFocus()
             }
-        )
+            else{
+                binding.etName.setText("")
+                Toast.makeText(applicationContext,"Saved",Toast.LENGTH_LONG).show()
+
+                val  intent  = Intent(applicationContext,HomeActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+
+        //init repository and viewnodels
+        val webService  = RetrofitHelper.getInstance().create(WebService::class.java)
+        val weatherRepository = WeatherRepository(webService)
+
+        viewModel = ViewModelProvider(this, MainViewModelFactory(weatherRepository)).get(MainViewModel::class.java)
+
+        viewModel.weather.observe(this, {
+                Log.e("TEST", it.toString())
+        })
+
+
 
 
     }
