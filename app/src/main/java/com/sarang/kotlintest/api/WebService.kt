@@ -1,18 +1,19 @@
 package com.sarang.kotlintest.api
 
-import com.sarang.kotlintest.models.ResponseWeather
+import com.sarang.kotlintest.models.Weather
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface WebService {
 
-    @GET("/3hourly/{lat}&{lon}")
-    suspend fun getFiveDayForecast(@Path("lat") lat : Double, @Path("lon") lon : Double) : ResponseWeather
+    @GET("/forecast/3hourly?lat={lat}&lon={lon}")
+    suspend fun getFiveDayForecast(@Path("lat") lat : Double, @Path("lon") lon : Double) : Weather
 
 
- @GET("/3hourly/{lat}&{lon}")
-    suspend fun getFiveDayForecastRespose(@Path("lat") lat : Double, @Path("lon") lon : Double) : Response<ResponseWeather>
+ @GET("/forecast/3hourly")
+    suspend fun getFiveDayForecastRespose(@Query("lat") lat : Double, @Query("lon") lon : Double) : Response<Weather>
     }
 
