@@ -30,8 +30,10 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         //init ui components
-        binding.tvName.text = "Welcome to Kotlin"
+       // binding.name = "Welcome to Kotlin"
+
         binding.etName.hint = "Enter Name"
+        binding.save.text = "Save"
 
         binding.save.setOnClickListener {
             if(binding.etName.text.toString().equals("")){
@@ -48,13 +50,14 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        //init repository and viewnodels
+        //init repository and viewmodels
         val webService  = RetrofitHelper.getInstance().create(WebService::class.java)
         val weatherRepository = WeatherRepository(webService)
 
         viewModel = ViewModelProvider(this, MainViewModelFactory(weatherRepository)).get(MainViewModel::class.java)
 
         viewModel.weather.observe(this, {
+            binding.name = it
                 Log.e("TEST", it.toString())
         })
 

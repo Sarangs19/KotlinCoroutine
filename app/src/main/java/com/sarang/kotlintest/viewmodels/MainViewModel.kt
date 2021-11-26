@@ -11,11 +11,14 @@ import kotlinx.coroutines.launch
 class MainViewModel(private val repository: WeatherRepository) : ViewModel() {
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.getWeather(35.5,-78.5)
+        viewModelScope.launch(Dispatchers.Main) {
+            repository.getWeather(20.747264, 78.602957)
+            repository.getWeather(20.890408, 78.989887)
+            repository.getWeather(21.027710, 77.767389)
         }
-
     }
+
+
 
     val weather : LiveData<Weather>
     get() = repository.weather

@@ -7,7 +7,7 @@
 
         <variable
             name="name"
-            type="String" />
+            type="com.sarang.kotlintest.models.Weather" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -27,7 +27,7 @@
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{name}" />
+                android:text="@{name.cityName}" />
 
             <EditText
                 android:layout_marginTop="30dp"
