@@ -15,6 +15,9 @@ class MainViewModel(private val repository: WeatherRepository) : ViewModel() {
             repository.getWeather(20.747264, 78.602957)
             repository.getWeather(20.890408, 78.989887)
             repository.getWeather(21.027710, 77.767389)
+            repository.getWeather(20.890408, 78.989887)
+            repository.getWeather(20.747264, 78.602957)
+
         }
     }
 
