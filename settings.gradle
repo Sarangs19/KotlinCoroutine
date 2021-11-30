@@ -9,3 +9,4 @@ dependencyResolutionManagement {
 rootProject.name = "Kotlin Test"
 include ':app'
 include ':login'
+include ':Register'

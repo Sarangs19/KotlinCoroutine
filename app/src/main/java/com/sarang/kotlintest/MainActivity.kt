@@ -17,6 +17,7 @@ import com.sarang.kotlintest.databinding.ActivityMainBinding
 import com.sarang.kotlintest.repository.WeatherRepository
 import com.sarang.kotlintest.viewmodels.MainViewModel
 import com.sarang.kotlintest.viewmodels.MainViewModelFactory
+import com.sarang.register.RegisterActivity
 import java.time.Duration
 
 class MainActivity : AppCompatActivity() {
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 binding.etName.setText("")
                 Toast.makeText(applicationContext,"Saved",Toast.LENGTH_LONG).show()
 
-                val  intent  = Intent(applicationContext,HomeActivity::class.java)
+                val  intent  = Intent(applicationContext,RegisterActivity::class.java)
                 startActivity(intent)
             }
         }
