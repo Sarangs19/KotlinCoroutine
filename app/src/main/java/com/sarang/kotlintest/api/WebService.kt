@@ -10,10 +10,12 @@ import retrofit2.http.Query
 interface WebService {
 
     @GET("/forecast/3hourly?lat={lat}&lon={lon}")
-    suspend fun getFiveDayForecast(@Path("lat") lat : Double, @Path("lon") lon : Double) : Weather
+    suspend fun getFiveDayForecast(@Path("lat") lat : Double,
+                                   @Path("lon") lon : Double) : Weather
 
 
- @GET("/forecast/3hourly")
-    suspend fun getFiveDayForecastRespose(@Query("lat") lat : Double, @Query("lon") lon : Double) : Response<Weather>
+    @GET("/forecast/3hourly")
+    suspend fun getFiveDayForecastRespose(@Query("lat") lat : Double,
+                                          @Query("lon") lon : Double) : Response<Weather>
     }
 
